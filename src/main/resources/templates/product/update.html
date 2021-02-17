@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="master::admin-head"></th:block>
+
+<body>
+<div id="wrapper">
+    <!-- Menu left -->
+    <nav th:replace="master::admin-menuleft"></nav>
+    <!-- end menu left -->
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row">
+            <!-- Navbar top -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="javascript:void(0);"><i class="fa fa-navicon"></i></a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href=""><i class="fa fa-sign-out"></i> Logout</a>
+                    </li>
+                </ul>
+            </nav>
+            <!--./ end navbar top -->
+        </div>
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="col-lg-12 pl-5">
+                                <ol class="breadcrumb">
+                                    <li>
+                                        <a href="">Trang chủ</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Danh sách rượu</a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="">Cập nhật</a>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default border-square">
+                                        <div class="ibox-title">
+                                            <h3 class="pull-left"><i class="fa fa-industry"></i>Cập nhật thông tin sản phẩm</h3>
+                                            <div>
+                                                <th:block th:if="${message}">
+                                                    <span class="message"><b style="color: red; margin-left: 300px" th:text="${message}"></b></span>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <ul class="nav nav-tabs row mb-5" id="navTabs-accessory">
+
+                                                <li class="active">
+                                                    <a data-toggle="tab" href="#product1">Cập nhật sản phẩm</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content" id="resultTabs" style="margin-top: 10px">
+                                                <!-- thêm thủ công -->
+                                                <div id="product1" class="tab-pane fade in active ">
+                                                    <form method="POST" th:action="@{/admin/product/update}" id="form-insert" th:object="${product}" enctype="multipart/form-data">
+                                                        <input type="hidden" th:field="*{id}" th:value="${product.id}" name="firstName" placeholder="" />
+                                                        <div class="col-lg-12 row">
+                                                            <div class="col-lg-6 row" style="float: left;">
+                                                                <div class="form-group">
+                                                                    <label>Tên rượu</label>
+                                                                    <input class="form-control" name="name" th:value="${product.name}" th:field="*{name}"  placeholder="" style="width: 80%"  />
+                                                                    <p style="color: red"></p>
+                                                                </div>
+                                                                <div class="form-group" style="width: 417px;">
+                                                                    <label>Loại rượu</label>
+                                                                    <select th:field="*{category}" name="category" class="form-control select2 select-group" style="width: 417px">
+                                                                        <option th:value="${product.category.getId()}" th:text="${product.category.getName()}" ></option>
+                                                                        <option th:each="c : ${category}" th:value="${c.id}" th:text="${c.name}" style="width: 417px"></option>
+                                                                    </select>
+                                                                    <p style="color: red"></p>
+                                                                </div>
+                                                                <div class="form-group" style="width: 417px;">
+                                                                    <label>Loại rượu</label>
+                                                                    <select th:field="*{tradeMark}" name="tradeMark" class="form-control select2 select-group" style="width: 80%">
+                                                                        <option th:value="${product.tradeMark.getId()}" th:text="${product.tradeMark.getName()}" ></option>
+                                                                        <option th:each="t : ${trademark}" th:value="${t.id}" th:text="${t.name}" style="width: 417px"></option>
+                                                                    </select>
+                                                                    <p style="color: red"></p>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Giá tiền</label>
+                                                                    <input class="form-control" name="price" th:field="*{price}" th:value="${product.price}"   placeholder="" style="width: 80%"  />
+                                                                    <p style="color: red"></p>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Số lượng</label>
+                                                                    <input class="form-control" name="quantity" th:field="*{quantity}" th:value="${product.quantity}"   placeholder="" style="width: 80%"  />
+                                                                    <p style="color: red"></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 row" style="float: left;">
+                                                                <div class="form-group">
+                                                                    <label>Image1</label>
+                                                                    <br>
+                                                                    <img th:src="@{'/views/img/'+ ${product.image1}}" style="width: 40px; height: 40px; float: left">
+                                                                    <input type="file" class="form-control" th:field="*{productImage1}" name="productImage1" style="width: 80%" />
+                                                                    <p style="color: red"> </p>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Image2</label>
+                                                                    <br>
+                                                                    <img th:src="@{'/views/img/'+ ${product.image2}}" style="width: 40px; height: 40px; float: left">
+                                                                    <input type="file" class="form-control" th:field="*{productImage2}" name="productImage2" style="width: 80%" />
+                                                                    <p style="color: red"> </p>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Image3</label>
+                                                                    <br>
+                                                                    <img th:src="@{'/views/img/'+ ${product.image3}}" style="width: 40px; height: 40px; float: left">
+                                                                    <input type="file" class="form-control" th:field="*{productImage3}" name="productImage3" style="width: 80%" />
+                                                                    <p style="color: red"> </p>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Image4</label>
+                                                                    <br>
+                                                                    <img th:src="@{'/views/img/'+ ${product.image4}}" style="width: 40px; height: 40px; float: left">
+                                                                    <input type="file" class="form-control" th:field="*{productImage4}" name="productImage4" style="width: 80%" />
+                                                                    <p style="color: red"> </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 row">
+                                                            <div class="form-group">
+                                                                <label for="comment">Mô tả</label>
+                                                                <textarea class="form-control" th:field="*{description}" th:value="${product.description}" name="description" rows="5" id="comment"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div style="text-align: center">
+                                                            <button type="submit" class="btn btn-success" name="btn_submit">
+                                                                <i class="fa fa-save fa-fw"></i> Lưu lại
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- kết thúc thêm thủ công -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="text-center">
+                <strong>Copyright</strong> SHI-V Company &copy; 2018
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="master::admin-jslink"></th:block>
+</body>
+</html>

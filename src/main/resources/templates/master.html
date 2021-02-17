@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="view-footer-js">
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- top footer -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Thông Tin</h3>
+                            <ul class="footer-links">
+                                <li><a href="#"><i class="fa fa-map-marker"></i>Địa chỉ</a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i>Email</a></li>
+                                <li><a href="#"><i class="fa fa-facebook-square"></i>FaceBook</a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i>Intagram</a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Tổng Đài Bán Hàng</h3>
+                            <ul class="footer-links">
+                                <li><a href="#">Đặt hàng gọi miễn phí: 1800 6066(8h - 20h00)</a></li>
+                                <li><a href="#">Đổi hàng, bảo hành, khiếu nại: 1900 6483(8h - 17h30)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="clearfix visible-xs"></div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">Hỗ Trợ Khách Hàng</h3>
+                            <ul class="footer-links">
+                                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                                <li><a href="#">Thanh toán qua ngân hàng</a></li>
+                                <li><a href="#">Chính sách bảo hành</a></li>
+                                <li><a href="#">Chính sách đổi trả</a></li>
+                                <li><a href="#">Chính sách tích điểm</a></li>
+                                <li><a href="#">Bảo mật thông tin</a></li>
+                                <li><a href="#">Chính sách vận chuyển</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <h3 class="footer-title">FaceBook Page</h3>
+                            <div id="fb-root"></div>
+                            <script>(function(d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (d.getElementById(id)) return;
+                                js = d.createElement(s); js.id = id;
+                                js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.5";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));</script>
+                            <div style="width: 100%;">
+                                <div class="fb-page" data-href="" data-tabs="timeline" data-width="600"  data-height="250" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/lacdaustore" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/lacdaustore"></a></blockquote></div>
+                                <div class="fb-page" data-href="https://www.facebook.com/Chivas/" data-tabs="timeline" data-width="600"  data-height="250" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Chivas/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Chivas/"></a></blockquote></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /top footer -->
+
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="footer-section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>Coppyright <a href="#"><i class="fa fa-facebook"></i></a> 2019-2029 <strong>  Quang Linh</strong></p>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- jQuery Plugins -->
+    <script>
+        function saveCart(e){
+            let idProduct = e.getAttribute("href");
+            $.ajax({
+                type: "GET",
+                url: "/cart/add/" + idProduct,
+                success: function (data) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/total",
+                        success: function (sum){
+                            $.ajax({
+                                type: "GET",
+                                url: "/quantity",
+                                success: function (quantity){
+                                    let test = ``;
+                                    let length = data.length;
+                                    for (let i = 0; i < length; i++){
+                                        test += getContent(data[i],quantity[i])
+                                    }
+                                    test+=` <div class="cart-summary">
+                                                <small>Tổng tiền</small>
+                                                <h4 style="color: red">${sum} $</h4>
+                                            </div>
+                                            <div class="cart-btns">
+                                                <a href="/store">Xem thêm</a>
+                                                <a href="/dat-hang">Đặt Hàng  <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>`
+                                    document.getElementById("numberCart").innerHTML = length;
+                                    document.getElementById("item-cart-list").innerHTML = test;
+                                }
+                            })
+
+                        }
+                    })
+                }
+            })
+            event.preventDefault();
+        }
+
+        function getContent(product,quantity){
+            return `<div class="product-widget">
+                        <div class="product-img">
+                                            <img src="/views/img/${product.image1}" style="width:45px; height: 60px" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name">Tên rượu: ${product.name}<a href="#"></a></h3>
+                                            <h4 class="product-price">Giá tiền: ${product.price}$<span class="qty"></span></h4>
+                                            <h3 class="product-name">Số lượng: ${quantity}<a href="#"></a></h3>
+                                        </div>
+                                        <a href=""><button class="delete"><i class="fa fa-close"></i></button></a>
+                                    </div>`
+        }
+    </script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/nouislider.min.js"></script>
+    <script src="/js/jquery.zoom.min.js"></script>
+    <script src="/js/main.js"></script>
+</th:block>
+
+<th:block th:fragment = "view-top-cart-menu">
+    <!-- TOP HEADER -->
+    <div id="top-header">
+        <div class="container">
+            <div class="row col-lg-8">
+                <ul class="header-links pull-left">
+                    <li><a href="#"><i class="fa fa-phone"></i>........</a></li>
+                    <li><a href="#"><i class="fa fa-envelope-o"></i>............</a></li>
+                    <li><a href="#"><i class="fa fa-map-marker"></i>.................</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4" th:if="${user}">
+                <p style="margin: 0; padding: 0; color: white; float:left" th:text="'Đm ' + ${user.full_name}"><a></a></p>
+                <a href="/logout" style="margin: 0; padding: 0; color: white; float: right">Logout</a>
+            </div>
+            <div class="col-lg-4" th:if="${user} == null">
+                <a href="/login" style="margin: 0; padding: 0; color: white; float: right">Login</a>
+            </div>
+        </div>
+    </div>
+    <!-- /TOP HEADER -->
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="#" class="logo">
+                            <img src="/views/img/Va-Va-Voom.gif" alt="" width="130" height="110" style="float: left">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- SEARCH BAR -->
+                <div class="col-md-6">
+                    <div class="header-search" style="margin-top: 15px">
+                        <form action="/search" method="GET">
+                            <input class="input" type="text" name="key" placeholder="Tìm kiếm tại đây">
+                            <button class="search-btn" type="submit">Tìm Kiếm</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
+
+                <!-- ACCOUNT -->
+                <div class="col-md-3 clearfix" style="margin-left: -80px;">
+                    <div class="header-ctn">
+                        <!-- Cart -->
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-shopping-bag"></i>
+                                <p style="margin-bottom: -5px">Túi của bạn <br>( <span id="numberCart" style="color: red" th:if="${count}" th:text="${count}"></span><span id="numberCart" style="color: red" th:if="${count} == null"> Rỗng</span> )</p>
+
+                            </a>
+                            <div class="cart-dropdown" id="item-cart-list">
+                                <div class="cart-list">
+                                    <th:block th:each="item : ${cartItem}">
+                                    <!--<th:block th:each="quantity : ${quantity}">-->
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img th:src="@{'/views/img/'+ ${item.image1}}"  style="width:45px; height: 60px"  alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#" th:text="'Tên rượu:' + ' ' + ${item.name}"></a></h3>
+                                            <h4 class="product-price" style="color: red" th:text="'Giá tiền:' + ' ' + ${item.price} + ' ' + '$' "><span class="qty"></span></h4>
+                                            <!--<h3 class="product-name" th:text="'Số lượng:' + ' ' + ${quantity}"><a href="#"></a></h3>-->
+                                        </div>
+                                        <a href=""><button class="delete"><i class="fa fa-close"></i></button></a>
+                                    </div>
+                                    </th:block>
+                                    <!--</th:block>-->
+                                </div>
+
+                                <div class="cart-summary" id="total-price">
+                                    <small>Tổng tiền</small>
+                                    <h4 style="color: red" th:text="${total} + '$'"> </h4>
+                                </div>
+                                <div class="cart-btns">
+                                    <a href="/store">Xem thêm</a>
+                                    <a href="/dat-hang">Đặt Hàng  <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /Cart -->
+
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- /MAIN HEADER -->
+    </header>
+    <nav id="navigation">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav ">
+                    <li class="active"><a href="/index">Trang chủ</a></li>
+                    <li><a href="/store">Sản phẩm</a></li>
+                    <li class="dropdown"><a href="">Thương Hiệu</a>
+                        <ul  class="dropdown-content main-nav nav navbar-nav" style="border-top:2px solid #E4E7ED; border-bottom: 5px solid #D10024">
+
+                            <li><a href=""></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/phan-hoi">Phản hồi - Góp ý</a></li>
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
+        </div>
+        <!-- /container -->
+    </nav>
+</th:block>
+
+<th:block th:fragment="views-head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Va-Va-Voom</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/slick.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/slick-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/nouislider.min.css"/>
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
+    <style type="text/css">
+        #brand-1
+        {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            display: inline-block;
+            position: relative;
+            background-color: #d1d3d1;
+            color: #666;
+            height: 25px;
+            width: 24px;
+            border: 0;
+            top: 7px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-right: 8px;
+            outline: none;
+        }
+        #brand-1:checked::before
+        {
+            position: absolute;
+            font: 13px/1 'Open Sans', sans-serif;
+            left: 7px;
+            top: 7px;
+            content: '\02143';
+            transform: rotate(40deg);
+            font-size: 15px;
+            color: black;
+            font-weight: bold;
+            padding-right: 5px;
+        }
+        #brand-1:hover
+        {
+            background-color: #f1f1f1;
+        }
+        #brand-1:checked
+        {
+            background-color: #d1d3d1;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 1040px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 10px 16px;
+            z-index: 1;
+        }
+        .dropdown-content > li > a {
+            padding: 3px 0px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .content-item {
+            padding:30px 0;
+            background-color:#FFFFFF;
+        }
+
+        .content-item.grey {
+            background-color:#F0F0F0;
+            padding:50px 0;
+            height:100%;
+        }
+
+        .content-item h2 {
+            font-weight:700;
+            font-size:35px;
+            line-height:45px;
+            text-transform:uppercase;
+            margin:20px 0;
+        }
+
+        .content-item h3 {
+            font-weight:400;
+            font-size:20px;
+            color:#555555;
+            margin:10px 0 15px;
+            padding:0;
+        }
+
+        .content-headline {
+            height:1px;
+            text-align:center;
+            margin:20px 0 70px;
+        }
+
+        .content-headline h2 {
+            background-color:#FFFFFF;
+            display:inline-block;
+            margin:-20px auto 0;
+            padding:0 20px;
+        }
+
+        .grey .content-headline h2 {
+            background-color:#F0F0F0;
+        }
+
+        .content-headline h3 {
+            font-size:14px;
+            color:#AAAAAA;
+            display:block;
+        }
+
+
+        #comments {
+            box-shadow: 0 -1px 6px 1px rgba(0,0,0,0.1);
+            background-color:#FFFFFF;
+        }
+
+        #comments form {
+            margin-bottom:30px;
+        }
+
+        #comments .btn {
+            margin-top:7px;
+        }
+
+        #comments form fieldset {
+            clear:both;
+        }
+
+        #comments form textarea {
+            height:100px;
+        }
+
+        #comments .media {
+            border-top:1px dashed #DDDDDD;
+            padding:20px 0;
+            margin:0;
+        }
+
+        #comments .media > .pull-left {
+            margin-right:20px;
+        }
+
+        #comments .media img {
+            max-width:100px;
+        }
+
+        #comments .media h4 {
+            margin:0 0 10px;
+        }
+
+        #comments .media h4 span {
+            font-size:14px;
+            float:right;
+            color:#999999;
+        }
+
+        #comments .media p {
+            margin-bottom:15px;
+            text-align:justify;
+        }
+
+        #comments .media-detail {
+            margin:0;
+        }
+
+        #comments .media-detail li {
+            color:#AAAAAA;
+            font-size:12px;
+            padding-right: 10px;
+            font-weight:600;
+        }
+
+        #comments .media-detail a:hover {
+            text-decoration:underline;
+        }
+
+        #comments .media-detail li:last-child {
+            padding-right:0;
+        }
+
+        #comments .media-detail li i {
+            color:#666666;
+            font-size:15px;
+            margin-right:10px;
+        }
+    </style>
+</th:block>
+
+<th:block th:fragment="admin-head">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="description" content="Latest updates and statistic charts">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="/ql/img/blank/favicon.png"/>
+        <link rel="stylesheet" type="text/css" href="/ql/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/ql/font-awesome/css/font-awesome.css"/>
+        <link rel="stylesheet" type="text/css" href="/ql/css/animate.css"/>
+        <!--    <link rel="stylesheet" type="text/css" href="../../resources/css/style.css" th:href="@{/resources/css/style.css}" />-->
+        <link rel="stylesheet" type="text/css" href="/ql/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/ql/css/custom.css"/>
+        <link rel="stylesheet" type="text/css" href="/ql/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"/>
+        <!-- Toastr style -->
+        <link rel="stylesheet" type="text/css" href="/ql/css/plugins/toastr/toastr.min.css"  />
+        <!-- Sweet alert -->
+        <link rel="stylesheet" type="text/css" href="/ql/css/plugins/sweetalert/sweetalert.css"/>
+        <!-- Choosen style -->
+        <link rel="stylesheet" type="text/css" href="/ql/css/plugins/chosen/bootstrap-chosen.css"/>
+        <!-- Select2 style -->
+        <link rel="stylesheet" type="text/css" href="/ql/css/plugins/select2/select2.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/ql/css/plugins/jasny/jasny-bootstrap.min.css"/>
+    </head>
+</th:block>
+
+<nav class="navbar-default navbar-static-side" role="navigation" th:fragment="admin-menuleft">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header fixed-menu" >
+                <div class="dropdown profile-element text-center">
+                     <span class="text-center">
+                     <img alt="image" class="img-thumbnail"
+                          src=""
+                          style="width: 58px;height: 58px"/>
+                     </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                     <span class="clear">
+                     <span class="block m-t-xs">
+                     <strong class="font-bold">
+                     <span class="text-muted text-xs"><b class="caret"></b></span>
+                     </strong>
+                     </span>
+                     </span>
+                    </a>
+                </div>
+            </li>
+            <li class="mg-top-130">
+                <a href="/admin/product">
+                    <i class="fa fa-archive "></i>
+                    <span class="nav-label">Sản phẩm</span>
+                </a>
+                <a href="/admin/trademark">
+                    <i class="fa fa-cube"></i>
+                    <span class="nav-label">Thương hiệu</span>
+                </a>
+                <a href="/admin/category">
+                    <i class="fa fa-diamond"></i>
+                    <span class="nav-label">Loại rượu</span>
+                </a>
+                <a href="/admin/product/create">
+                    <i class="fa fa-plus"></i>
+                    <span class="nav-label">Thêm rượi</span>
+                </a>
+                <a href="/admin/category/create">
+                    <i class="fa fa-plus"></i>
+                    <span class="nav-label">Thêm loại rượi</span>
+                </a>
+                <a href="/admin/trademark/">
+                    <i class="fa fa-newspaper-o"></i>
+                    <span class="nav-label">Nhãn Hiệu</span>
+                </a>
+                <a href="/admin/trademark/create">
+                    <i class="fa fa-plus"></i>
+                    <span class="nav-label">Thêm nhãn hiệu </span>
+                </a>
+<!--                <a href="/admin/trademark">-->
+<!--                    <i class="fa fa-home fa-fw active"></i>-->
+<!--                    <span class="nav-label">Đánh giá</span>-->
+<!--                </a>-->
+            </li>
+        </ul>
+    </div>
+</nav>
+<th:block th:fragment="admin-footer">
+<div class="footer" >
+    <div class="text-center">
+        <strong>Copyright</strong> SHI-V Company &copy; 2018
+    </div>
+</div>
+</th:block>
+
+<th:block th:fragment="admin-jslink">
+    <script src="/ql/js/jquery-3.1.1.min.js"></script>
+    <script src="/ql/js/bootstrap.min.js" ></script>
+    <script src="/ql/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/ql/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Flot -->
+    <script src="/ql/js/plugins/flot/jquery.flot.js"></script>
+    <script src="/ql/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/ql/js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="/ql/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="/ql/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="/ql/js/plugins/flot/jquery.flot.symbol.js"></script>
+    <script src="/ql/js/plugins/flot/jquery.flot.time.js"></script>
+    <!-- Peity -->
+    <script src="/ql/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="/ql/js/demo/peity-demo.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="/ql/js/inspinia.js"></script>
+    <script src="/ql/js/plugins/pace/pace.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="/ql/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Jvectormap -->
+    <script src="/ql/js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="/ql/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- EayPIE -->
+    <script src="/ql/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+    <!-- Sparkline -->
+    <script src="/ql/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!-- Select2 -->
+    <script src="/ql/js/plugins/select2/select2.full.min.js"></script>
+    <!-- Sparkline demo data  -->
+    <script src="/ql/js/demo/sparkline-demo.js"></script>
+    <!-- iCheck -->
+    <script src="/ql/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- Toastr -->
+    <script src="/ql/js/plugins/toastr/toastr.min.js"></script>
+    <!-- Sweet alert -->
+    <script src="/ql/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Chosen JS -->
+    <script type="text/javascript" src="/ql/js/plugins/chosen/chosen.jquery.js"></script>
+    <!-- Common JS -->
+    <script src="/ql/js/common.js"></script>
+    <script src="/ql/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <!-- Idle Timer plugin -->
+    <script src="/ql/js/plugins/idle-timer/idle-timer.min.js"></script>
+</th:block>
+</body>
+</html>

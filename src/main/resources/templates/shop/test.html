@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lego</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/slick.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/slick-theme.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/nouislider.min.css"/>
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
+    <style type="text/css">
+        #brand-1
+        {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            display: inline-block;
+            position: relative;
+            background-color: #d1d3d1;
+            color: #666;
+            height: 25px;
+            width: 24px;
+            border: 0;
+            top: 7px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-right: 8px;
+            outline: none;
+        }
+        #brand-1:checked::before
+        {
+            position: absolute;
+            font: 13px/1 'Open Sans', sans-serif;
+            left: 7px;
+            top: 7px;
+            content: '\02143';
+            transform: rotate(40deg);
+            font-size: 15px;
+            color: black;
+            font-weight: bold;
+            padding-right: 5px;
+        }
+        #brand-1:hover
+        {
+            background-color: #f1f1f1;
+        }
+        #brand-1:checked
+        {
+            background-color: #d1d3d1;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 1040px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 10px 16px;
+            z-index: 1;
+        }
+        .dropdown-content > li > a {
+            padding: 3px 0px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<
+<!-- TOP HEADER -->
+<div id="top-header">
+    <div class="container">
+        <ul class="header-links pull-left">
+            <li><a href="#"><i class="fa fa-phone"></i>........</a></li>
+            <li><a href="#"><i class="fa fa-envelope-o"></i>............</a></li>
+            <li><a href="#"><i class="fa fa-map-marker"></i>.................</a></li>
+        </ul>
+    </div>
+</div>
+<!-- /TOP HEADER -->
+
+<!-- MAIN HEADER -->
+<div id="header">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- LOGO -->
+            <div class="col-md-3">
+                <div class="header-logo">
+                    <a href="#" class="logo">
+                        <img src="img/Va-Va-Voom.gif" alt="" width="130px" height="115px" style="float: left">
+                    </a>
+                </div>
+            </div>
+            <!-- /LOGO -->
+
+            <!-- SEARCH BAR -->
+            <div class="col-md-6">
+                <div class="header-search" style="margin-top: 15px">
+                    <form action="/search" method="GET">
+                        <input class="input" type="text" name="key" placeholder="Tìm kiếm tại đây">
+                        <button class="search-btn" type="submit">Tìm Kiếm</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /SEARCH BAR -->
+
+            <!-- ACCOUNT -->
+            <div class="col-md-3 clearfix" style="margin-left: -80px;">
+                <div class="header-ctn">
+                    <!-- Cart -->
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-shopping-bag"></i>
+                            <p style="margin-bottom: -5px">Túi của bạn</p>
+
+                        </a>
+                        <div class="cart-dropdown">
+
+                            <div class="cart-list">
+                                <div class="product-widget">
+                                    <div class="product-img">
+                                        <img src="" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="#"></a></h3>
+                                        <h4 class="product-price"><span class="qty"></span>
+
+                                    </div>
+                                    <a href=""><button class="delete"><i class="fa fa-close"></i></button></a>
+                                </div>
+                            </div>
+
+                            <div class="cart-summary">
+                                <small>Tổng tiền</small>
+                                <h4 style="color: red"> VNĐ</h4>
+                            </div>
+                            <div class="cart-btns">
+                                <a href="/store">Xem thêm</a>
+                                <a href="/dat-hang">Đặt Hàng  <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Cart -->
+
+                    <!-- Menu Toogle -->
+                    <div class="menu-toggle">
+                        <a href="#">
+                            <i class="fa fa-bars"></i>
+                            <span>Menu</span>
+                        </a>
+                    </div>
+                    <!-- /Menu Toogle -->
+                </div>
+            </div>
+            <!-- /ACCOUNT -->
+        </div>
+        <!-- row -->
+    </div>
+    <!-- container -->
+</div>
+<!-- /MAIN HEADER -->
+</header>
+
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav ">
+                <li class="active"><a href="/index">Trang chủ</a></li>
+                <li><a href="/store">Sản phẩm</a></li>
+                <li class="dropdown"><a href="">Thương Hiệu</a>
+                    <ul  class="dropdown-content main-nav nav navbar-nav" style="border-top:2px solid #E4E7ED; border-bottom: 5px solid #D10024">
+
+                        <li><a href=""></a></li>
+                    </ul>
+                </li>
+                <li><a href="/phan-hoi">Phản hồi - Góp ý</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+<!-- 		<div class="dropdown">
+  <button class="dropbtn">Dropdown</button>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+</div> -->
+<!-- /HEADER -->
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="/index">Trang chủ</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- Product main img -->
+            <div class="col-md-5 col-md-push-2">
+                <div id="product-main-img">
+                    <div class="product-preview">
+                        <img src="/electro/img/" height="390px">
+                    </div>
+
+                    <div class="product-preview">
+                        <img src="/electro/img/" height="400px">
+                    </div>
+
+                    <div class="product-preview">
+                        <img src="/electro/img/" height="400px">
+                    </div>
+
+                    <div class="product-preview">
+                        <img src="/electro/img/" height="400px">
+                    </div>
+                </div>
+            </div>
+            <!-- /Product main img -->
+            <!-- Product thumb imgs -->
+            <div class="col-md-2  col-md-pull-5">
+                <div id="product-imgs">
+                    <div class="product-preview">
+                        <img src="/electro/img/" height="133px">
+                    </div>
+
+                    <div class="product-preview">
+                        <img src="/electro/img/" height="133px">
+                    </div>
+
+                    <div class="product-preview">
+                        <img src="/electro/img/" height="133px">
+                    </div>
+
+                    <div class="product-preview">
+                        <img src="/electro/img/" height="133px">
+                    </div>
+                </div>
+            </div>
+            <!-- /Product thumb imgs -->
+            <!-- Product details -->
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-11">
+                        <div class="product-details">
+                            <h2 class="product-name"></h2>
+                            <div>
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="product-price"> VNĐ</h4>
+
+                                <span class="product-available">In Stock</span>
+                            </div>
+                            <p></p>
+                            <div class="add-to-cart">
+                                <a href=""><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào túi</button></a>
+                            </div>
+
+                            <ul class="product-links">
+                                <li>Loại sản phẩm:</li>
+                                <li></a></li>
+                            </ul>
+                            <ul class="product-links">
+                                <li>Thương hiệu:</li>
+                                <li></a></li>
+                            </ul>
+                            <div>
+                                <p class="product-links">Mô tả:</p>
+                                <p> &nbsp;<span class="glyphicon glyphicon-asterisk"> &nbsp;</span></p>
+
+                            </div>
+                            <ul class="product-links">
+                                <li>Share:</li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Product details -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- Section -->
+<div class="section" style="margin-bottom: 30px;">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h3 class="title">Sản Phẩm Tương Tự</h3>
+                </div>
+            </div>
+            <!-- product -->
+            <div class="col-md-3 col-xs-6">
+                <div class="product">
+                    <div class="product-img">
+                        <a href="/product-details/"><img src="/electro/img/" width="100%" height="220px"></a>
+                        <div class="product-label">
+                            <span class="new">NEW</span>
+                        </div>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-category"></p>
+                        <h3 class="product-name"><a href="/product-details/"></a></h3>
+
+                        <span class="new">NEW</span>
+
+                        <div class="product-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product-btns">
+                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Yêu thích</span></button>
+                            <button class="quick-view"><a href=""><i class="fa fa-eye"></i><span class="tooltipp">Xem</span></a></button>
+                        </div>
+                    </div>
+                    <div class="add-to-cart">
+                        <a href=""><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào túi</button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- /product -->
+            <div class="clearfix visible-sm visible-xs"></div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /Section -->
+<!-- FOOTER -->
+<footer id="footer">
+    <!-- top footer -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Thông Tin</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa fa-map-marker"></i>Địa chỉ</a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i>Email</a></li>
+                            <li><a href="#"><i class="fa fa-facebook-square"></i>FaceBook</a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i>Intagram</a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Tổng Đài Bán Hàng</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Đặt hàng gọi miễn phí: 1800 6066(8h - 20h00)</a></li>
+                            <li><a href="#">Đổi hàng, bảo hành, khiếu nại: 1900 6483(8h - 17h30)</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clearfix visible-xs"></div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Hỗ Trợ Khách Hàng</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Hướng dẫn mua hàng</a></li>
+                            <li><a href="#">Thanh toán qua ngân hàng</a></li>
+                            <li><a href="#">Chính sách bảo hành</a></li>
+                            <li><a href="#">Chính sách đổi trả</a></li>
+                            <li><a href="#">Chính sách tích điểm</a></li>
+                            <li><a href="#">Bảo mật thông tin</a></li>
+                            <li><a href="#">Chính sách vận chuyển</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">FaceBook Page</h3>
+                        <div id="fb-root"></div>
+                        <script>(function(d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) return;
+                            js = d.createElement(s); js.id = id;
+                            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.5";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));</script>
+                        <div style="width: 100%;">
+                            <div class="fb-page" data-href="" data-tabs="timeline" data-width="600"  data-height="250" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/lacdaustore" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/lacdaustore"></a></blockquote></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /top footer -->
+
+    <!-- bottom footer -->
+    <div id="bottom-footer" class="footer-section">
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>Coppyright <a href="#"><i class="fa fa-facebook"></i></a> 2019-2029 <strong>  Quang Linh</strong></p>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /bottom footer -->
+</footer>
+<!-- /FOOTER -->
+
+<!-- jQuery Plugins -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/slick.min.js"></script>
+<script src="/js/nouislider.min.js"></script>
+<script src="/js/jquery.zoom.min.js"></script>
+<script src="/js/main.js"></script>
+
+</body>
+</html>

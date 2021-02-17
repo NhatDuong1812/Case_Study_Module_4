@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="master::views-head"></th:block>
+</head>
+<script>
+    function changeTrademark(e){
+        let id = e.getAttribute("id");
+        $.ajax({
+            type:"GET",
+            url:"/shop/getPrTrademark/" + id,
+            //xử lý khi thành công
+            success: function (data) {
+                let content = `<div class=\"products-slick slick-initialized slick-slider\" data-nav=\"#slick-nav-2\"><div class=\"slick-list draggable\"><div class=\"slick-track\" style=\"opacity: 1; width: 1172px; transform: translate3d(0px, 0px, 0px);\">`
+                for(let i = 0; i < data.length; i++){
+                    content += `<div class=\"product slick-slide slick-current slick-active\" data-slick-index=\"0\" aria-hidden=\"false\" tabindex=\"0\" style=\"width: 263px;\">` + getProduct(data[i]) +`</div>` ;
+                }
+                content += `</div></div></div><div id="slick-nav-2" class="products-slick-nav"><button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: inline-block;">Previous</button><button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: inline-block;">Next</button>`;
+                console.log(id);
+                document.getElementById('tab2').innerHTML = content;
+                console.log(content);
+            }
+        })
+    //chặn sự kiện mặc định của thẻ
+    event.preventDefault();
+    }
+
+    function getProduct(product) {
+        return `
+                                    <div class="product-img">
+                                        <a href="/shop/details/${product.id}"><img src="/views/img/${product.image1}" alt="" width="100%" height="220px"></a>
+                                        <div class="product-label">
+                                            <span class="new">NEW</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category" >${product.tradeMark.name}</p>
+                                        <h3 class="product-name"><a href="/shop/details/${product.id}">${product.name}</a></h3>
+                                        <h4 class="product-price">${product.price} VNĐ</h4>
+                                        <div class="product-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="product-btns">
+                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                            <button class="quick-view"><a href=""><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a></button>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <a href=""><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào túi</button></a>
+                                    </div>`
+
+    }
+</script>
+<body>
+<th:block th:replace="master::view-top-cart-menu"></th:block>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- shop -->
+            <th:block th:each="category : ${category}">
+            <div class="col-md-4 col-xs-6">
+                <div class="shop">
+                    <div class="shop-img">
+                        <img th:src="@{'/views/img/'+ ${category.image}}" alt="" height="220px">
+                    </div>
+                    <div class="shop-body">
+                        <h3 th:text="${category.name}"><br></h3>
+                        <a href="" class="cta-btn">Xem ngay <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            </th:block>
+            <!-- /shop -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Thương Hiệu</h3>
+                    <div class="section-nav">
+                    </div>
+                </div>
+            </div>
+            <!-- /section title -->
+
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab1" class="tab-pane active">
+                            <div class="category-slick" data-nav="#slick-nav-5">
+                                <!-- product -->
+                                <th:block th:each="trademark: ${trademark}">
+                                <div class="product" >
+                                    <div class="product-img">
+                                        <a href=""><img th:src="@{'/views/img/'+ ${trademark.image}}" alt="" width="100%" height="140px"></a>
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-name"><a href="" th:text="${trademark.name}"></a></h3>
+                                    </div>
+                                </div>
+                                </th:block>
+                                <!-- /product -->
+                            </div>
+                            <div id="slick-nav-5" class="products-slick-nav"></div>
+                        </div>
+                        <!-- /tab -->
+                    </div>
+                </div>
+            </div>
+            <!-- Products tab & slick -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Rượu mới</h3>
+                    <div class="section-nav">
+                    </div>
+                </div>
+            </div>
+            <!-- /section title -->
+
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab1" class="tab-pane active">
+                            <div class="products-slick" data-nav="#slick-nav-1">
+                                <!-- product -->
+                                <th:block th:each="product : ${newProduct}">
+                                <div class="product" >
+                                    <div class="product-img">
+                                        <a th:href="@{/shop/details/__${product.id}__}"><img th:src="@{'/views/img/'+ ${product.image1}}" alt="" width="100%" height="220px"></a>
+                                        <div class="product-label">
+                                            <span class="new">NEW</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category" th:text="${product.tradeMark.name}"></p>
+                                        <h3 class="product-name"><a th:href="@{/shop/details/__${product.id}__}" th:text="${product.name}"></a></h3>
+                                        <h4 class="product-price" th:text="${product.price} + ' $'"> $</h4>
+                                        <div class="product-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="product-btns">
+                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                            <button class="quick-view"><a href=""><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a></button>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <a th:if="${user}"><button class="add-to-cart-btn" th:href="${product.id}" onclick="saveCart(this)" >Thêm vào túi</button></a>
+                                        <a th:if="${user} == null" href="/login"><button class="add-to-cart-btn" >Thêm vào túi</button></a>
+                                    </div>
+                                </div>
+                                </th:block>
+                                <!-- /product -->
+                            </div>
+                            <div id="slick-nav-1" class="products-slick-nav"></div>
+                        </div>
+                        <!-- /tab -->
+                    </div>
+                </div>
+            </div>
+            <!-- Products tab & slick -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<div id="hot-deal" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hot-deal">
+                    <ul class="hot-deal-countdown">
+                        <li>
+                            <div>
+                                <h3>Live </h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>with </h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>Chivalry</h3>
+                            </div>
+                        </li>
+                    </ul>
+                    <h2 class="text-uppercase">Siêu Khuyễn Mãi Mùa Noel 2020</h2>
+                    <p>Giảm Giá Nhiều Sản Phẩm Mới !!!</p>
+                    <p style="">Up to 50%</p>
+                    <a class="primary-btn cta-btn" href="#">Shop now</a>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Thương Hiệu</h3>
+                    <div class="section-nav">
+                        <ul class="section-tab-nav tab-nav">
+                            <th:block th:each="tradeMarks : ${tradeMarks}">
+                                <li ><a data-toggle="tab" th:id="${tradeMarks.id}"  href="#tab2" th:text="${tradeMarks.name}" onclick="changeTrademark(this)" ></a></li>
+                            </th:block>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /section title -->
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        <!-- tab -->
+                        <div id="tab2" class="tab-pane fade in active">
+                            <div class="products-slick" data-nav="#slick-nav-2">
+                                <!-- product -->
+                                <th:block th:each="product : ${tradeProduct}">
+                                    <div class="product" >
+                                        <div class="product-img">
+                                            <a th:href="@{/shop/details/__${product.id}__}"><img th:src="@{'/views/img/'+ ${product.image1}}" alt="" width="100%" height="220px"></a>
+                                            <div class="product-label">
+                                                <span class="new">NEW</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-body">
+                                            <p class="product-category" th:text="${product.tradeMark.name}"></p>
+                                            <h3 class="product-name"><a th:href="@{/shop/details/__${product.id}__}" th:text="${product.name}"></a></h3>
+                                            <h4 class="product-price" th:text="${product.price} + ' $'">  $</h4>
+                                            <div class="product-rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <div class="product-btns">
+                                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                                <button class="quick-view"><a href=""><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a></button>
+                                            </div>
+                                        </div>
+                                        <div class="add-to-cart">
+                                            <a href=""><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào túi</button></a>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <!-- /product -->
+                            </div>
+                            <div id="slick-nav-2" class="products-slick-nav"></div>
+                        </div>
+                        <!-- /tab -->
+                    </div>
+                </div>
+            </div>
+            <!-- /Products tab & slick -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<!-- SECTION -->
+<!--<div class="section">
+    &lt;!&ndash; container &ndash;&gt;
+    <div class="container">
+        &lt;!&ndash; row &ndash;&gt;
+        <div class="row">
+
+            &lt;!&ndash; section title &ndash;&gt;
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Linh Phụ Kiện Máy Tính</h3>
+                    <div class="section-nav">
+                    </div>
+                </div>
+            </div>
+            &lt;!&ndash; /section title &ndash;&gt;
+
+            &lt;!&ndash; Products tab & slick &ndash;&gt;
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="products-tabs">
+                        &lt;!&ndash; tab &ndash;&gt;
+                        <div id="tab2" class="tab-pane fade in active">
+                            <div class="products-slick" data-nav="#slick-nav-4">
+                                &lt;!&ndash; product &ndash;&gt;
+                                <div class="product" >
+                                    <div class="product-img">
+                                        <a href=""><img src="img/" alt="" width="100%" height="220px"></a>
+                                        <div class="product-label">
+                                            <span class="sale">SALE</span>
+                                            <span class="new">NEW</span>
+                                            <span class="new">NEW</span> <span class="sale">SALE</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category"></p>
+                                        <h3 class="product-name"><a href=""></a></h3>
+                                        <h4 class="product-price"> VNĐ</h4>
+                                        <div class="product-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="product-btns">
+                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                            <button class="quick-view"><a href=""><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a></button>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <a href=""><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào túi</button></a>
+                                    </div>
+                                </div>
+                                &lt;!&ndash; /product &ndash;&gt;
+                            </div>
+                            <div id="slick-nav-4" class="products-slick-nav"></div>
+                        </div>
+                        &lt;!&ndash; /tab &ndash;&gt;
+                    </div>
+                </div>
+            </div>
+            &lt;!&ndash; /Products tab & slick &ndash;&gt;
+        </div>
+        &lt;!&ndash; /row &ndash;&gt;
+    </div>
+    &lt;!&ndash; /container &ndash;&gt;
+</div>-->
+<!-- /SECTION -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-4 col-xs-6">
+                <div class="section-title">
+                    <h4 class="title" th:text="${cat3.name}" ></h4>
+                    <div class="section-nav">
+                        <a href="">Xem thêm</a>
+                    </div>
+                </div>
+                <hr class="widget-hr" >
+                <div class="products-widget-slick" data-nav="#slick-nav-4">
+                    <div>
+                        <!-- product widget -->
+                        <th:block th:each="categories3 : ${categories3}">
+                        <div class="product-widget">
+                            <div class="product-img">
+                                <a href=""><img th:src="@{'/views/img/'+ ${categories3.image1}}" width="60px" height="60px"></a>
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category" th:text="${categories3.tradeMark.name}"></p>
+                                <h3 class="product-name"><a th:href="@{/shop/details/__${categories3.id}__}" th:text="${categories3.name}"></a></h3>
+                                <h4 class="product-price" th:text="${categories3.price} + ' $'">  $</h4>
+
+                            </div>
+                        </div>
+                        </th:block>
+                        <!-- /product widget -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xs-6">
+                <div class="section-title">
+                    <h4 class="title" th:text="${cat2.name}" ></h4>
+                    <div class="section-nav">
+                        <a href="">Xem thêm</a>
+                    </div>
+                </div>
+                <hr class="widget-hr" >
+                <div class="products-widget-slick" data-nav="#slick-nav-4">
+                    <div>
+                        <!-- product widget -->
+                        <th:block th:each="categories2 : ${categories2}">
+                            <div class="product-widget">
+                                <div class="product-img">
+                                    <a href=""><img th:src="@{'/views/img/'+ ${categories2.image1}}" width="60px" height="60px"></a>
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category" th:text="${categories2.tradeMark.name}"></p>
+                                    <h3 class="product-name"><a th:href="@{/shop/details/__${categories2.id}__}" th:text="${categories2.name}"></a></h3>
+                                    <h4 class="product-price" th:text="${categories2.price} + ' $'">  &</h4>
+
+                                </div>
+                            </div>
+                        </th:block>
+                        <!-- /product widget -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix visible-sm visible-xs"></div>
+
+            <div class="col-md-4 col-xs-6">
+                <div class="section-title">
+                    <h4 class="title" th:text="${cat1.name}" ></h4>
+                    <div class="section-nav">
+                        <a href="">Xem thêm</a>
+                    </div>
+                </div>
+                <hr class="widget-hr" >
+                <div class="products-widget-slick" data-nav="#slick-nav-4">
+                    <div>
+                        <!-- product widget -->
+                        <th:block th:each="categories1 : ${categories1}">
+                            <div class="product-widget">
+                                <div class="product-img">
+                                    <a href=""><img th:src="@{'/views/img/'+ ${categories1.image1}}" width="60px" height="60px"></a>
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category" th:text="${categories1.tradeMark.name}"></p>
+                                    <h3 class="product-name"><a th:href="@{/shop/details/__${categories1.id}__}" th:text="${categories1.name}"></a></h3>
+                                    <h4 class="product-price" th:text="${categories1.price} + ' $'">  </h4>
+
+                                </div>
+                            </div>
+                        </th:block>
+                        <!-- /product widget -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<div id="newsletter" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="newsletter">
+                    <p style="font-size: 24px; text-align: center;">Một Chút Về <strong>VaVaVoom</strong></p>
+                    <p class="newsletter-gt">VaVaVoom kinh doanh theo mô hình website trực tuyến kết hợp với hệ thống chuỗi cửa hàng bán lẻ tại các thành phố lớn trên toàn quốc. Với phương châm "phục phụ khách hàng bằng cả trái tim". VaVaVoom luôn lấy khách hàng làm trung tâm cho mọi hoạt động để tạo ra nhiều giá trị cộng đồng.</p>
+                    <ul class="newsletter-follow">
+                        <li>
+                            <a href="#"><i class="fa fa-shopping-bag"></i> Hơn 15.000 sản phẩm</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-phone"></i> Hỗ trợ 24/7 miễn phí cuộc gọi</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-truck"></i> Miễn phí vận chuyển</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-space-shuttle"></i> Giao hàng tận nhà</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<th:block th:replace="master::view-footer-js"></th:block>
+</body>
+</html>

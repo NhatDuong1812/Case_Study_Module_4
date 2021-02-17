@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="master::views-head"></th:block>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function addCart(e){
+             let proId=e.getAttribute("idPro");
+             $.ajax({
+                 type:"GET",
+                 url:"/checkLogin",
+                 success: function (user){
+                     if (user == null) {
+                         location.replace("http://localhost:8080/login");
+                     }else  {
+                         $.ajax({
+                             type:"GET",
+                             //tên API
+                             url:"/cartitem/create/"+proId,
+                             success: function () {
+                                 successHandler();
+                             }
+                         })
+                         //chặn sự kiện mặc định của thẻ
+                         event.preventDefault();
+                     }
+                 }
+             })
+        }
+
+        function searchByPrice(){
+            let min = $('#price-min').val().split(',');
+            let max = $('#price-max').val().split(',');
+            $.ajax({
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "GET",
+                url: `/shop/price?min-price=${min}&max-price==${max}`,
+                success: function (data) {
+                    let content="";
+                    for (let i=0;i<data.length;i++){
+                        content+=getProduct(data[i]);
+
+
+                    }
+                    document.getElementById('product').innerHTML=content;
+                }
+            })
+            event.preventDefault();
+        }
+    </script>
+</head>
+<body>
+<th:block th:replace="master::view-top-cart-menu"></th:block>
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="/index">Trang chủ</a></li><li><a href="/store">Sản phẩm</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+                <!-- aside Widget -->
+                <form method= "get" action="" id="form-filter">
+                    <div class="aside">
+                        <h3 class="aside-title">Thương hiệu</h3>
+                        <div class="checkbox-filter" style="margin-top: -20px">
+                            <select  name="tradeMark" class="form-control select2 select-group" style="width: 270px">
+                                <option value="">Thương Hiệu</option>
+                                <option th:each="t : ${trademark}" th:value="${t.id}" th:text="${t.name}" style="width: 417px"></option>
+                            </select>
+                            <p style="color: red"></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- /aside Widget -->
+                    <!-- aside Widget -->
+                    <div class="aside">
+                        <h3 class="aside-title">Loại rượu</h3>
+                        <div class="checkbox-filter" style="margin-top: -20px">
+                            <select name="category" class="form-control select2 select-group" style="width: 270px">
+                                <option value="">Loại Rượu</option>
+                                <option th:each="c : ${categorys}" th:value="${c.id}" th:text="${c.name}" style="width: 417px"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="aside" style="margin-left: 65px; margin-top: -15px;">
+                        <button  class="btn btn-outline-success btn-lg"	>TÌM KIẾM</button>
+                    </div>
+                </form>
+                <!-- aside Widget -->
+                <form>
+                    <div class="aside">
+                        <h3 class="aside-title">Price</h3>
+                        <div class="price-filter">
+                            <div id="price-slider"></div>
+                            <div class="input-number price-min">
+                                <input id="price-min" name="min-price" type="number" data-slider-max="1000">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                            <span>-</span>
+                            <div class="input-number price-max">
+                                <input id="price-max" name="max-price" type="number"data-slider-max="100000">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aside" style="margin-left: 65px">
+                        <button  class="btn btn-outline-success btn-lg" onclick="searchByPrice()" >TÌM KIẾM</button>
+                    </div>
+                </form>
+                <!-- /aside Widget -->
+            </div>
+            <!-- /ASIDE -->
+
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- store products -->
+                <div class="row">
+                        <!-- product -->
+                    <th:block th:each="product: ${listproduct}">
+                        <div class="col-md-4 col-xs-6">
+                            <div class="product" >
+                                <div class="product-img" >
+                                    <a th:href="@{/shop/detail/__${product.id}__}"><img th:src="@{'/views/img/'+ ${product.image1}}" alt="" width="100%" height="220px"></a>
+                                    <div class="product-label">
+                                        <span class="new">NEW</span>
+                                    </div>
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category" th:text="${product.tradeMark.name}"></p>
+                                    <h3 class="product-name" th:text="${product.name}"><a href=""></a></h3>
+                                    <h4 class="product-price" th:text="${product.price}"> VNĐ</h4>
+                                    <div class="product-rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="product-btns">
+                                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                        <button class="quick-view"><a href=""><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a></button>
+                                    </div>
+                                </div>
+                                <div class="add-to-cart">
+                                    <button th:attr="idPro=${product.id}" class="add-to-cart-btn" onclick="addCart(this)"><i class="fa fa-shopping-cart"></i>Thêm vào túi</button>
+                                </div>
+                            </div>
+<!--                        </div>-->
+
+                        <!-- /product -->
+                </div>
+                    </th:block>
+                <!-- /store products -->
+
+                <!-- store bottom filter -->
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <div class="pagination">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/store'(page=${listproduct.number - 1})}" th:if="${listproduct.hasPrevious()}">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <span class="page-link" th:text="${listproduct.number + 1}"></span><span class="page-link" th:text="${listproduct.totalPages}"></span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/store'(page=${listproduct.number + 1})}" th:if="${listproduct.hasNext()}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<th:block th:replace="master::view-footer-js"></th:block>
+</body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+
+</script>
+</html>

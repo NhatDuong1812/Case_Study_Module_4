@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="master::views-head"></th:block>
+</head>
+
+<th:block th:replace="master::view-top-cart-menu"></th:block>
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="breadcrumb-header">Checkout</h3>
+                <ul class="breadcrumb-tree">
+                    <li><a href="/index">Trang chủ</a></li>
+                    <li class="active">Checkout</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-7">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    <div class="section-title">
+                        <h3 class="title">Thông Tin Khách Hàng</h3>
+                    </div>
+                    <form action="/dat-hang" method="GET" class="beta-form-checkout">
+                        <div class="form-group">
+                            <input class="input" type="text"  placeholder="Tên đầy đủ" style="width: 500px">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="email"  placeholder="Email" style="width: 500px">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="text"  placeholder="Địa chỉ" style="width: 500px">
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="number" placeholder="Số điện thoại" style="width: 500px">
+                        </div>
+                        <div class="order-notes">
+                            <textarea name="note"  style="height: 150px; width: 500px"></textarea>
+                        </div>
+                </div>
+                <!-- /Billing Details -->
+            </div>
+
+            <!-- Order Details -->
+            <div class="col-md-5 order-details">
+                <div class="section-title text-center">
+                    <h3 class="title">Sản phẩm</h3>
+                </div>
+                <div class="order-summary">
+                    <div class="order-col">
+                        <div><strong>Sản phẩm</strong></div>
+                        <div><strong>Tổng tiền </strong></div>
+                    </div>
+                    <div class="order-products">
+
+                        <div class="order-col">
+                            <div><img src="" width="50" height="50"></div>
+                            <div style="padding-left: 11px;"><strong><b style="color: red; font-size: 15px; "></b> </strong></div>
+                            <div><strong> VNĐ</strong></div>
+                        </div>
+
+                    </div>
+                    <div class="order-col">
+                        <div><strong>Thành tiền</strong></div>
+                        <div><strong style="font-size: 20px"> VNĐ</strong></div>
+                    </div>
+                </div>
+                <div class="payment-method">
+                    <div class="input-radio">
+                        <input type="radio" name="payment_method" value="ATM" id="payment-1">
+                        <label for="payment-1">
+                            <span></span>
+                            Thanh toán qua ngân hàng
+                        </label>
+                        <div class="caption">
+                            Chuyển tiền đến tài khoản sau:
+                            <br>- Số tài khoản: 951357842268
+                            <br>- Chủ TK: Nguyễn Đức Thành
+                            <br>- Ngân hàng VpBank
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="input-radio">
+                        <input type="radio" id="payment-2"  value="COD">
+                        <label for="payment-2">
+                            <span></span>
+                            Thanh toán khi nhận hàng
+                        </label>
+                    </div>
+                </div>
+                <button class="primary-btn order-submit">ĐẶT HÀNG</button>
+                </form>
+            <!-- /Order Details -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- FOOTER -->
+<<th:block th:replace="master::view-footer-js"></th:block>
+</body>
+
+</body>
+</html>
