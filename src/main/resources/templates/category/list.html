@@ -88,10 +88,10 @@
                                                         <td style="text-align: center" th:text="${category.name}"></td>
                                                         <td style="text-align: center"><img th:src="@{'/views/img/'+ ${category.image}}"  style="width: 45px; height: 37px"></td>
                                                         <td style="text-align: center">
-                                                            <a class="btn" th:href="@{/category/update/__${category.id}__}">
+                                                            <a class="btn" th:href="@{/admin/category/update/__${category.id}__}">
                                                                 <i class="glyphicon glyphicon-edit"></i> Sửa
                                                             </a>
-                                                            <a onclick="return confirm('Are you sure?')" th:href="@{/category/delete/__${category.id}__}">
+                                                            <a onclick="return confirm('Are you sure?')" th:href="@{/admin/category/delete/__${category.id}__}">
                                                                 <i class="glyphicon glyphicon-trash"></i> Xóa
                                                             </a>
                                                         </td>

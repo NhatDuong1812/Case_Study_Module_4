@@ -221,18 +221,18 @@
                             <div class="cart-dropdown" id="item-cart-list">
                                 <div class="cart-list">
                                     <th:block th:each="item : ${cartItem}">
-                                    <!--<th:block th:each="quantity : ${quantity}">-->
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img th:src="@{'/views/img/'+ ${item.image1}}"  style="width:45px; height: 60px"  alt="">
+                                        <!--<th:block th:each="quantity : ${quantity}">-->
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img th:src="@{'/views/img/'+ ${item.image1}}"  style="width:45px; height: 60px"  alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#" th:text="'Tên rượu:' + ' ' + ${item.name}"></a></h3>
+                                                <h4 class="product-price" style="color: red" th:text="'Giá tiền:' + ' ' + ${item.price} + ' ' + '$' "><span class="qty"></span></h4>
+                                                <!--<h3 class="product-name" th:text="'Số lượng:' + ' ' + ${quantity}"><a href="#"></a></h3>-->
+                                            </div>
+                                            <a href=""><button class="delete"><i class="fa fa-close"></i></button></a>
                                         </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#" th:text="'Tên rượu:' + ' ' + ${item.name}"></a></h3>
-                                            <h4 class="product-price" style="color: red" th:text="'Giá tiền:' + ' ' + ${item.price} + ' ' + '$' "><span class="qty"></span></h4>
-                                            <!--<h3 class="product-name" th:text="'Số lượng:' + ' ' + ${quantity}"><a href="#"></a></h3>-->
-                                        </div>
-                                        <a href=""><button class="delete"><i class="fa fa-close"></i></button></a>
-                                    </div>
                                     </th:block>
                                     <!--</th:block>-->
                                 </div>
@@ -556,10 +556,10 @@
                     <i class="fa fa-archive "></i>
                     <span class="nav-label">Sản phẩm</span>
                 </a>
-                <a href="/admin/trademark">
-                    <i class="fa fa-cube"></i>
-                    <span class="nav-label">Thương hiệu</span>
-                </a>
+                <!--                <a href="/admin/trademark">-->
+                <!--                    <i class="fa fa-cube"></i>-->
+                <!--                    <span class="nav-label">Thương hiệu</span>-->
+                <!--                </a>-->
                 <a href="/admin/category">
                     <i class="fa fa-diamond"></i>
                     <span class="nav-label">Loại rượu</span>
@@ -580,20 +580,20 @@
                     <i class="fa fa-plus"></i>
                     <span class="nav-label">Thêm nhãn hiệu </span>
                 </a>
-<!--                <a href="/admin/trademark">-->
-<!--                    <i class="fa fa-home fa-fw active"></i>-->
-<!--                    <span class="nav-label">Đánh giá</span>-->
-<!--                </a>-->
+                <!--                <a href="/admin/trademark">-->
+                <!--                    <i class="fa fa-home fa-fw active"></i>-->
+                <!--                    <span class="nav-label">Đánh giá</span>-->
+                <!--                </a>-->
             </li>
         </ul>
     </div>
 </nav>
 <th:block th:fragment="admin-footer">
-<div class="footer" >
-    <div class="text-center">
-        <strong>Copyright</strong> SHI-V Company &copy; 2018
+    <div class="footer" >
+        <div class="text-center">
+            <strong>Copyright</strong> SHI-V Company &copy; 2018
+        </div>
     </div>
-</div>
 </th:block>
 
 <th:block th:fragment="admin-jslink">
