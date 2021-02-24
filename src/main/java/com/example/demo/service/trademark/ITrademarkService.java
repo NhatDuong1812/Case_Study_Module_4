@@ -11,7 +11,5 @@ import java.util.List;
 
 public interface ITrademarkService extends IService<TradeMark> {
     Page<TradeMark> findAllByFirstNameContaining(String name, Pageable pageable);
-
     Page<TradeMark> findAll(Pageable pageable);
-
 }

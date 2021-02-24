@@ -14,5 +14,4 @@ import java.util.List;
 @Repository
 public interface TrademarkRepository extends PagingAndSortingRepository<TradeMark,Long>, CrudRepository<TradeMark, Long> {
     Page<TradeMark> findAllByNameContaining(String firstname, Pageable pageable);
-
 }

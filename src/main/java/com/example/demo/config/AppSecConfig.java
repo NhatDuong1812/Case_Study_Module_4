@@ -25,11 +25,21 @@ public class AppSecConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //session
+//        http.sessionManagement().sessionFixation().newSession()
+//                .invalidSessionUrl("/login?message=timeout")
+//                .maximumSessions(1).expiredUrl("/login?message=max_session").maxSessionsPreventsLogin(true);
+        //authentication and Authorization
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
                 .and().authorizeRequests().antMatchers("/shop/**").permitAll()
                 .and()
-                .formLogin().successHandler(customSuccessHandler)
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .successHandler(customSuccessHandler)
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .invalidateHttpSession(true)
                 .and().exceptionHandling().accessDeniedPage("/accessDenied");
         http.csrf().disable();
     }

@@ -115,21 +115,13 @@ public class ShopController {
         Page<TradeMark> tradeMarks = trademarkService.findAll(pageable);
         TradeMark tradeMark1 = trademarkService.findById(1L).get();
         List<Category> categories = categoryService.findNewCategory();
-        Category cat1 = categoryService.findById(categories.get(0).getId()).get();
-        Category cat2 = categoryService.findById(categories.get(1).getId()).get();
-        Category cat3 = categoryService.findById(categories.get(2).getId()).get();
-        Page<Products> categories1 = productService.findAllByCategory(cat1,pageable);
-        Page<Products> categories2 = productService.findAllByCategory(cat2,pageable);
-        Page<Products> categories3 = productService.findAllByCategory(cat3,pageable);
+        Category cat = categoryService.findById(categories.get(0).getId()).get();
+        Page<Products> categories1 = productService.findAllByCategory(cat,pageable);
         Iterable<Products> tradeProduct = productService.findAllByTradeMark(tradeMark1);
         Iterable<Products> newProduct = productService.findAllBy8Day();
         modelAndView.addObject("newProduct",newProduct);
-        modelAndView.addObject("cat1",cat1);
-        modelAndView.addObject("cat2",cat2);
-        modelAndView.addObject("cat3",cat3);
+        modelAndView.addObject("cat1",cat);
         modelAndView.addObject("categories1",categories1);
-        modelAndView.addObject("categories2",categories2);
-        modelAndView.addObject("categories3",categories3);
         modelAndView.addObject("tradeMarks",tradeMarks);
         modelAndView.addObject("tradeProduct",tradeProduct);
         return modelAndView;
@@ -200,21 +192,21 @@ public class ShopController {
         return new ResponseEntity<>(allProductByPrice,HttpStatus.OK);
     }
 
-    @GetMapping("/register")
-    public ModelAndView createUser(){
-        ModelAndView modelAndView= new ModelAndView("user/create");
-        modelAndView.addObject("user",new AppUser());
-        return modelAndView;
-    }
-   @PostMapping("/register")
-    public ModelAndView createAppUser(@ModelAttribute AppUser user){
-        ModelAndView modelAndView= new ModelAndView("user/create");
-        AppRole appRole= new AppRole();
-        appRole.setId((long) 2);
-        appRole.setName("ROLE_USER");
-        modelAndView.addObject("user", new AppUser());
-        return modelAndView;
-    }
+//    @GetMapping(value = {"/register")
+//    public ModelAndView createUser(){
+//        ModelAndView modelAndView= new ModelAndView("user/create");
+//        modelAndView.addObject("user",new AppUser());
+//        return modelAndView;
+//    }
+//   @PostMapping("/register")
+//    public ModelAndView createAppUser(@ModelAttribute AppUser user){
+//        ModelAndView modelAndView= new ModelAndView("user/create");
+//        AppRole appRole= new AppRole();
+//        appRole.setId((long) 2);
+//        appRole.setName("ROLE_USER");
+//        modelAndView.addObject("user", new AppUser());
+//        return modelAndView;
+//    }
 
     @GetMapping("/checkout")
     public ModelAndView checkout() {

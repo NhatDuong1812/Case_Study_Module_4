@@ -26,6 +26,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         if(response.isCommitted()){
             return;
         }
+//        request.getSession(false).setMaxInactiveInterval(120);
         redirectStrategy.sendRedirect(request,response,targetUrl);
     }
 

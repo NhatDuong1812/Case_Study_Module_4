@@ -147,7 +147,7 @@
             border-bottom: 2px solid #5fbae9;
         }
 
-        input[type=text]:placeholder {
+        input[type=text]::placeholder {
             color: #cccccc;
         }
 
@@ -285,17 +285,17 @@
         </div>
 
         <!-- Login Form -->
-        <form action="/shop/loginshop" th:object="appuser">
-            <input th:field="username" type="text" id="username" class="fadeIn second" name="username" placeholder="username">
-            <input th:field="password" type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+        <form th:action="@{/login}" method="post">
+            <input type="text"  class="fadeIn second" name="username" placeholder="username">
+            <input type="password" class="fadeIn third" name="password" placeholder="password">
             <input type="submit" class="fadeIn fourth" value="Log In">
         </form>
 
         <!-- Remind Passowrd -->
-<!--        <div id="formFooter">-->
-<!--            <a class="underlineHover" href="#">Forgot Password?</a>-->
-<!--        </div>-->
-
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+            <a href="/register">Đăng Ký</a>
+        </div>
     </div>
 </div>
 </body>

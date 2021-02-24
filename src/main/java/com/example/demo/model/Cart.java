@@ -17,6 +17,6 @@ public class Cart {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="app_user_id")
+    @JoinColumn(name="app_user_id",nullable = false)
     private AppUser appUser;
 }

@@ -7,26 +7,46 @@ import com.example.demo.service.appUser.IAppUserService;
 import com.example.demo.service.cart.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/user")
 public class AppUserController {
     @Autowired
     private IAppUserService appUserService;
     @Autowired
     private ICartService cartService;
-    @GetMapping("/create")
+    @GetMapping("/login")
+    public ModelAndView login(){
+        ModelAndView modelAndView=new ModelAndView("user/login");
+        return modelAndView;
+    }
+//    @RequestMapping(value = { "/login" })
+//    public String login(@RequestParam(required=false) String message, final Model model) {
+//        if (message != null && !message.isEmpty()) {
+//            if (message.equals("timeout")) {
+//                model.addAttribute("message", "Time out");
+//            }
+//            if (message.equals("max_session")) {
+//                model.addAttribute("message", "This accout has been login from another device!");
+//            }
+//            if (message.equals("logout")) {
+//                model.addAttribute("message", "Logout!");
+//            }
+//            if (message.equals("error")) {
+//                model.addAttribute("message", "Login Failed!");
+//            }
+//        }
+//        return "redirect:/login";
+//    }
+        @GetMapping(value = {"/register","/shop/register"})
     public ModelAndView createUser(){
         ModelAndView modelAndView= new ModelAndView("user/create");
         modelAndView.addObject("user",new AppUser());
         return modelAndView;
     }
-   /* @PostMapping("/create")
+    @PostMapping(value = {"/register","/shop/register"})
     public ModelAndView createAppUser(@ModelAttribute AppUser user){
         ModelAndView modelAndView= new ModelAndView("user/create");
         AppRole appRole= new AppRole();
@@ -35,11 +55,10 @@ public class AppUserController {
         user.setRole(appRole);
         Cart cart= new Cart();
         cartService.save(cart);
-        user.setCart(cart);
         appUserService.save(user);
         modelAndView.addObject("user", new AppUser());
         return modelAndView;
-    }*/
+    }
    }
 
 
